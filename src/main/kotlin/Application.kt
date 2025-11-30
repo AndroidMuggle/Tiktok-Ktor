@@ -1,11 +1,16 @@
 package com.muggle
 
 import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 
 fun main(args: Array<String>) {
-    io.ktor.server.netty.EngineMain.main(args)
+    embeddedServer(Netty, port = 8080, host = "127.0.0.1") {
+        entryPoint()
+    }.start(wait = true)
 }
 
-fun Application.module() {
+fun Application.entryPoint() {
     configureRouting()
+    dispatchRouting()
 }
